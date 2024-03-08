@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.5.final using JasperReports Library version 6.20.5-3efcf2e67f959db3888d79f73dde2dbd7acb4f8e  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dailysales" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="63fdd4d4-f529-49e6-8338-897e13eebca4">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="sr"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="dates" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT   a.invoice_no,
+                          b.discount,
+                         DATE_FORMAT(b.date_transaction, '%b-%d-%Y') AS dates,
+                          a.item_name,
+                          a.quantity,
+                          a.total_price,
+                          CONCAT(c.last_name, ' ', c.first_name) AS fname
+FROM sales a
+	INNER JOIN sales_payment b ON 
+	 a.invoice_no = b.invoice_no
+	LEFT JOIN cashier c ON 
+	  b.cashier_assign = c.cashier_id
+WHERE 
+	 date(b.date_transaction) = '$P{dates}']]>
+	</queryString>
+	<field name="invoice_no" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="invoice_no"/>
+		<property name="com.jaspersoft.studio.field.label" value="invoice_no"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="sales"/>
+	</field>
+	<field name="discount" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="discount"/>
+		<property name="com.jaspersoft.studio.field.label" value="discount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="sales_payment"/>
+	</field>
+	<field name="dates" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dates"/>
+		<property name="com.jaspersoft.studio.field.label" value="dates"/>
+	</field>
+	<field name="item_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="item_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="item_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="sales"/>
+	</field>
+	<field name="quantity" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="quantity"/>
+		<property name="com.jaspersoft.studio.field.label" value="quantity"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="sales"/>
+	</field>
+	<field name="total_price" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="total_price"/>
+		<property name="com.jaspersoft.studio.field.label" value="total_price"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="sales"/>
+	</field>
+	<field name="fname" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="fname"/>
+		<property name="com.jaspersoft.studio.field.label" value="fname"/>
+	</field>
+	<variable name="sum" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_price}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="145" splitType="Stretch">
+			<staticText>
+				<reportElement x="150" y="10" width="278" height="30" uuid="cad585ad-7872-412e-899f-86c80ab9ea4f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Mongolian Baiti" size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[S & R School Supplies]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="114" y="37" width="350" height="20" uuid="4b1eb2fa-85b0-45db-8206-c26dd9c55ab7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Mongolian Baiti" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Brgy, Crossing Rubber, Beside Seait Campus]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="110" y="53" width="350" height="20" uuid="884420c6-b5b9-4b42-9f57-46d7e23cf0c2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Mongolian Baiti" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Tupi, South Cotabato 9505]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="80" width="278" height="30" forecolor="#424141" uuid="22615318-174e-40ac-9669-efc578a3222b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Mongolian Baiti" size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DAILY SALES REPORT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="218" y="114" width="60" height="30" uuid="7ee7e152-4b3b-4e48-97fc-d887d60f29fe"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Mongolian Baiti" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[DATE: ]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="142" width="560" height="1" forecolor="#524E4E" uuid="f4aeeafa-ae0d-48d0-aa8e-2f9a4dd27c0e"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<textField pattern="MMM d, yyyy h:mm:ss a z">
+				<reportElement x="257" y="108" width="100" height="30" uuid="9ea12f7a-b78b-4b63-98fa-be189c54a17c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Mongolian Baiti" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dates}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="18" splitType="Stretch">
+			<staticText>
+				<reportElement x="140" y="0" width="100" height="15" uuid="6023d425-f019-4ae9-8d38-9609b60c17a7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3ed1df9c-44ea-43c5-9866-a892b105ec6c"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<text><![CDATA[Item Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="257" y="-2" width="100" height="15" uuid="5d79028f-76f1-4256-946a-ed17a0d0f425">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6bc856ae-0cb2-4b53-b060-31dae426939a"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<text><![CDATA[Quantity]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="0" width="100" height="15" uuid="539c6bdf-e3a3-4108-b676-ed4cfbd84a38">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="aeba77bc-c42a-4edd-9a91-040068d5ece3"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<text><![CDATA[Discount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="420" y="0" width="100" height="15" uuid="4d3ad745-4d6b-47c1-9595-0bffdc579c3a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="02791840-a3d7-4d9b-b176-59f78fcda1dc"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<text><![CDATA[Total Price]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="37" y="0" width="100" height="15" uuid="5b50d6ef-d733-49d0-a898-e68c534e5c2e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1f53815a-8efe-466f-b6c0-cef68e14f9b3"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<text><![CDATA[Cashier Incharge]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="15" width="560" height="1" forecolor="#524E4E" uuid="d9568575-46da-426a-b750-b3b41514aba3"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="140" y="0" width="117" height="20" uuid="2a828901-a984-4c83-b20f-9171227795a6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3ed1df9c-44ea-43c5-9866-a892b105ec6c"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Mongolian Baiti"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{item_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="257" y="0" width="100" height="20" uuid="a0502b2c-5dc8-4945-869d-ed5987d05dd5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6bc856ae-0cb2-4b53-b060-31dae426939a"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Mongolian Baiti"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="340" y="0" width="100" height="20" uuid="bd143e0c-069b-4c25-b6a1-1b3071a7e672">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="aeba77bc-c42a-4edd-9a91-040068d5ece3"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Mongolian Baiti"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{discount}]]></textFieldExpression>
+			</textField>
+			<textField pattern="₱ #,##0.00#;#,##0.00#" isBlankWhenNull="true">
+				<reportElement x="420" y="0" width="100" height="20" uuid="b68b6494-809a-4e8e-b04b-a9bba9a534e5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="02791840-a3d7-4d9b-b176-59f78fcda1dc"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Mongolian Baiti"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total_price}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="37" y="0" width="133" height="20" uuid="707cbde5-7e8c-49d2-87bc-15619063e85a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1f53815a-8efe-466f-b6c0-cef68e14f9b3"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Mongolian Baiti"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fname}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="2" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="3" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="52" splitType="Stretch">
+			<staticText>
+				<reportElement x="321" y="6" width="108" height="20" uuid="ec9eade2-3f32-4ed4-8903-d6cedbca4bc7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Mongolian Baiti" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Grand Total:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="420" y="8" width="100" height="30" uuid="0ea98d75-f315-4d4c-9739-1aee782f59c4"/>
+				<textElement>
+					<font fontName="Mongolian Baiti" size="12" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{sum}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="9" y="0" width="560" height="1" forecolor="#524E4E" uuid="5252d66b-459b-4722-b7a2-20d3caf52161"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="310" y="30" width="224" height="20" uuid="1cfa2ca9-3f02-4ff8-81b1-8b3f313c0c56"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Mongolian Baiti" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Prepared By:    _____________]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>
